@@ -57,7 +57,7 @@ class Room:
 
     def __repr__(self):
         if len(self.guests) == 0:
-            _guests = "empty"
+            _guests = "empty.."
         else:
             _guests = ""
             for guest in self.guests:
@@ -105,6 +105,7 @@ class Room:
 
         self.guests = []
 
+
 #########################################
 # Question 3 - do not delete this comment
 #########################################
@@ -112,18 +113,49 @@ class Hotel:
     def __init__(self, name, rooms):
         self.name = name
         self.rooms = rooms
+        self.room_num = len(rooms)
 
     def __repr__(self):
-        pass  # replace this with your implementation
+        occ_num = sum([1 for room in self.rooms if room.is_occupied()])
+        return "{} hotel has:\n{} rooms\n{} occupied rooms".format(self.name, self.room_num, occ_num)
 
     def check_in(self, guests, rank):
-        pass  # replace this with your implementation
+        for room in self.rooms:
+            if not room.is_occupied() and room.rank == rank:
+                room.check_in(guests)
+                return room
+        return None
 
     def check_out(self, guest):
-        pass  # replace this with your implementation
+        room = self.search_room_with_guest(guest)
+        if room is None:
+            return None
+
+        room.check_out()
+        return room
+
+        return None
+
+    def search_room_with_guest(self, guest):
+        guest = guest.lower()
+        for room in self.rooms:
+            for g in room.guests:
+                if g == guest:
+                    return room
+
+        return None
 
     def upgrade(self, guest):
-        pass  # replace this with your implementation
+        org_room = self.search_room_with_guest(guest)
+        if org_room is None:
+            return None
+
+        for room in self.rooms:
+            if room.better_than(org_room) and not room.is_occupied():
+                org_room.move_to(room)   ## is this what they ment?
+                return room
+
+        return None
 
 
 #########################################
@@ -156,5 +188,5 @@ def test_hotel():
 # You can add more validation cases below
 #########################
 if __name__ == "__main__":
-    ##test_hotel() ## After you are done implenting all classes and methods, you may comment-in the call to test_hotel() and compare the results with the 
+    test_hotel()
     pass
