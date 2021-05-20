@@ -1,5 +1,7 @@
 import ex8_012345678 as a
-
+x = ["a", "b", "c"]
+s = ", ".join(x)
+print (s)
 
 
 #

@@ -56,16 +56,10 @@ class Room:
         self.satisfaction = float(satisfaction)
 
     def __repr__(self):
-        if len(self.guests) == 0:
-            _guests = "empty.."
-        else:
-            _guests = ""
-            for guest in self.guests:
-                _guests += guest + ", "
-
+        _guests = "empty" if len(self.guests) == 0 else ", ".join(self.guests)
         return self.minibar.__repr__() + "\nfloor: {}\nnumber: {}\nguests: {}\nclean_level: {}\nrank: {}" \
                                          "\nsatisfaction: {}" \
-            .format(self.floor, self.number, _guests[:-2], self.clean_level, self.rank, round(self.satisfaction, 1))
+            .format(self.floor, self.number, _guests, self.clean_level, self.rank, round(self.satisfaction, 1))
 
     def is_occupied(self):
         return len(self.guests) > 0
