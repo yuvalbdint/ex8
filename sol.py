@@ -8,12 +8,12 @@ class Minibar:
     def __init__(self, drinks, snacks):
         self.drinks = drinks
         self.snacks = snacks
-        self.bill = 0.0
+        self.bill = 0
 
     def __repr__(self):
         _drinks = list(self.drinks.keys())
         _snacks = list(self.snacks.keys())
-        return "The minibar contains the drinks: {}\nand the snacks: {}\nThe bill for the minibar is: {}".format(
+        return "The minibar contains the drinks: {}\nAnd the snacks: {}\nThe bill for the minibar is: {}".format(
             _drinks, _snacks, self.bill)
 
     def eat_a_snack(self, snack):
